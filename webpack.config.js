@@ -19,11 +19,11 @@ var config = {
 	},
 	module: {
 		loaders: [
-			// {
-			// 	test: /\.js$/,
-			// 	loader: 'babel',				
-			// 	exclude: [nodeModulesPath]
-			// },
+			{
+				test: /\.js$/,
+				loader: 'babel',								
+				exclude: [nodeModulesPath]
+			},
  			{ 
  				test: /\.css$/, 
  				loader: "style!css"
@@ -34,16 +34,3 @@ var config = {
 };
 
 module.exports = config;
-
-// module.exports = {
-// 	entry: "./entry.js",
-// 	output: {
-// 		path: __dirname,
-// 		filename: "bundle.js"
-// 	},
-// 	module: {
-// 		loaders : [
-// 			{ test: /\.css$/, loader: "style!css"}
-// 		]
-// 	}
-// }
