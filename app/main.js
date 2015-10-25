@@ -1,4 +1,5 @@
-require('../style.css')
+require('bootstrap-webpack')
+require('./styles/style.css')
 
 var m = require('mithril')
 
@@ -37,4 +38,4 @@ var Demo = {
 };
 
 //initialize
-m.mount(document.body, Demo)
+m.mount(document.getElementById('app'), Demo)
