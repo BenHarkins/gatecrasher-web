@@ -1,41 +1,30 @@
-require('bootstrap-webpack')
-require('./styles/style.css')
+require('bootstrap-webpack!./bootstrap.config.js');
+var nav = require('./nav')
+var layout = require('./layout')
 
 var m = require('mithril')
 
-//model
-var Page = {
-	list: function() {
-		//return m.request({method: "GET", url: "pages.json"});
+var demo = require('./demo')
 
-		var list = m.prop([])
-		list().push({url: 'http://floodgate.co', title: 'Floodgate'}, {url: 'http://benharkins.com', title: 'Ben Harkins'})
-		return list;
+var layoutMixin = function(layout, nav, body)
+{
+	return function() {
+		return layout(nav, body)
 	}
-};
+}
 
-var Demo = {
-	//controller
-	controller: function() {
-		var pages = Page.list();
-		return {
-			pages: pages,
-			rotate: function() {
-				pages().push(pages().shift());
-			}
-		}
-	},
+var mixedIn = {}
+mixedIn.controller = function() { }
+mixedIn.view = layoutMixin(layout, nav, function() { return ['mixedin body'] })
 
-	//view
-	view: function(ctrl) {
-		return m("div", [
-			ctrl.pages().map(function(page) {
-				return m("a", {href: page.url}, page.title);
-			}),
-			m("button", {onclick: ctrl.rotate}, "Rotate links")
-		]);
-	}
-};
+var foo = {}
+foo.view = layoutMixin(layout, nav, function() { return demo })
+
+m.route.mode = "hash";
+m.route(document.body, '/foo', {
+	'/foo': foo,
+	'/bar': mixedIn
+})
 
 //initialize
-m.mount(document.getElementById('app'), Demo)
+//m.mount(document.getElementById('app'), Demo)

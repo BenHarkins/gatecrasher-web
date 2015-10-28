@@ -4,11 +4,14 @@ var nodeModulesPath = path.resolve(__dirname, 'node_modules')
 var buildPath = path.resolve(__dirname, 'public', 'build')
 var mainPath = path.resolve(__dirname, 'app', 'main.js')
 
+//require('bootstrap-webpack!./bootstrap.config.js')
+
 var config = {
 	devTool: 'eval',
 	entry: [
 		'webpack/hot/dev-server',
 		'webpack-dev-server/client?http://localhost:8080',
+		//'bootstrap-webpack!./bootstrap.config.js',
 		mainPath
 	],
 	output: {
@@ -27,6 +30,10 @@ var config = {
  				test: /\.css$/, 
  				loader: "style!css"
  			},
+ 			{
+				test: /\.less$/,
+				loader: "style!css!less"
+			},
 			// **IMPORTANT** This is needed so that each bootstrap js file required by
 			// bootstrap-webpack has access to the jQuery object
 			{ test: /bootstrap\/js\//, loader: 'imports?jQuery=jquery' },			
